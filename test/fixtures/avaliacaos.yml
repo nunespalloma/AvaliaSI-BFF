@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  trancou_turma: false
+  porque_trancou: MyString
+  organizacao_conteudo: MyString
+  passagem_conteudo: MyString
+  quantidade_exercicios: MyString
+  teoria_pratica: MyString
+  avaliacao_condizente: MyString
+  assiduidade_professor: MyString
+  professor_solicito: MyString
+  professor_respeitoso: MyString
+  acredita_passar: false
+  ponto_que_afligiu: MyString
+  aspectos_gerais: MyString
+  turma: one
+
+two:
+  trancou_turma: false
+  porque_trancou: MyString
+  organizacao_conteudo: MyString
+  passagem_conteudo: MyString
+  quantidade_exercicios: MyString
+  teoria_pratica: MyString
+  avaliacao_condizente: MyString
+  assiduidade_professor: MyString
+  professor_solicito: MyString
+  professor_respeitoso: MyString
+  acredita_passar: false
+  ponto_que_afligiu: MyString
+  aspectos_gerais: MyString
+  turma: two
