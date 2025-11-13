@@ -1,7 +1,7 @@
 class AlunosController < ApplicationController
   # POST /alunos
   def create
-    usuario = Usuario.new(usuario_params)
+    usuario = Usuario.new(usuario_params.merge(is_coordenacao: false))
 
     if usuario.save
       aluno = Aluno.new(aluno_params.merge(usuario_id: usuario.id))

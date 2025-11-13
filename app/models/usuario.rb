@@ -2,7 +2,6 @@ class Usuario < ApplicationRecord
     has_secure_password
 
   has_one :aluno, dependent: :destroy, inverse_of: :usuario
-  has_one :coordenacao, dependent: :destroy, inverse_of: :usuario
 
   validates :nome, presence: true
   validates :email, presence: true, uniqueness: true

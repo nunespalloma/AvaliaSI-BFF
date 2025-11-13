@@ -3,6 +3,7 @@ class CreateUsuarios < ActiveRecord::Migration[8.0]
     create_table :usuarios do |t|
       t.string :nome, null: false
       t.string :email, null: false
+      t.boolean :is_coordenacao, default: false, null: false
       t.string :password_digest, null: false
 
       t.timestamps

@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       tipo =
         if usuario.aluno.present?
           'aluno'
-        elsif usuario.coordenacao.present?
+        elsif usuario.is_coordenacao?
           'coordenacao'
         else
           'usuario'
@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
           email: usuario.email,
           tipo: tipo,
           aluno_id: usuario.aluno&.id,
-          coordenacao_id: usuario.coordenacao&.id
+          is_coordenacao: usuario.is_coordenacao
         }
       }, status: :ok
     else

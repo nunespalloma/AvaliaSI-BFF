@@ -56,13 +56,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_233522) do
     t.index ["turma_id"], name: "index_avaliacaos_on_turma_id", unique: true
   end
 
-  create_table "coordenacaos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "usuario_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["usuario_id"], name: "index_coordenacaos_on_usuario_id", unique: true
-  end
-
   create_table "cursos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "nome"
     t.datetime "created_at", null: false
@@ -122,6 +115,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_233522) do
   create_table "usuarios", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "nome", null: false
     t.string "email", null: false
+    t.boolean "is_coordenacao", default: false, null: false
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -132,7 +126,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_233522) do
   add_foreign_key "alunos_avaliacaos", "alunos"
   add_foreign_key "alunos_avaliacaos", "avaliacaos"
   add_foreign_key "avaliacaos", "turmas"
-  add_foreign_key "coordenacaos", "usuarios"
   add_foreign_key "turmas", "disciplinas"
   add_foreign_key "turmas", "professores", column: "professor_id"
   add_foreign_key "turmas", "semestres"

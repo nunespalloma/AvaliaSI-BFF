@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :alunos, only: [:create] #POST /alunos
-  resources :coordenacaos,  only: [:create] #POST /coordenacaos
+  resources :usuarios, only: [:create] #POST /usuarios
 
   post 'login', to: 'sessions#create' # POST /login - endpoint de login
 
