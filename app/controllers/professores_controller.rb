@@ -1,49 +1,53 @@
 class ProfessoresController < ApplicationController
-  before_action :set_professor, only: [:show, :update, :destroy]
-
-  # GET /professores
   def index
-    professores = Professor.order(:id)
-    render json: professores
+    professores = Professor.order(:nome)
+
+    render json: professores.map { |professor|
+      {
+        id: professor.id,
+        nome: professor.nome
+      }
+    }
   end
 
-  # GET /professores/:id
-  def show
-    render json: @professor
-  end
-
-  # POST /professores
   def create
     professor = Professor.new(professor_params)
+
     if professor.save
-      render json: professor, status: :created
+      render json: {
+        id: professor.id,
+        nome: professor.nome,
+        message: 'Professor criado com sucesso'
+      }, status: :created
     else
-      render json: { errors: professor.errors.full_messages }, status: :unprocessable_entity
+      render_validation_error(professor)
     end
   end
 
-  # PUT/PATCH /professores/:id
   def update
-    if @professor.update(professor_params)
-      render json: @professor
+    professor = Professor.find(params[:id])
+
+    if professor.update(professor_params)
+      render json: {
+        id: professor.id,
+        nome: professor.nome,
+        message: 'Professor atualizado com sucesso'
+      }
     else
-      render json: { errors: @professor.errors.full_messages }, status: :unprocessable_entity
+      render_validation_error(professor)
     end
   end
 
-  # DELETE /professores/:id
   def destroy
-    @professor.destroy
-    head :no_content
+    professor = Professor.find(params[:id])
+    professor.destroy!
+
+    render json: { message: 'Professor excluído com sucesso' }
   end
 
   private
 
-  def set_professor
-    @professor = Professor.find(params[:id])
-  end
-
   def professor_params
-    params.require(:professor).permit(:nome, :email)
+    params.require(:professor).permit(:nome)
   end
 end
