@@ -10,9 +10,13 @@ Rails.application.routes.draw do
 
   resources :alunos, only: [:create] #POST /alunos
   resources :usuarios, only: [:create] #POST /usuarios
+  resources :disciplinas, only: [:index, :create, :update, :destroy]
+  resources :professores, only: [:index, :create, :update, :destroy]
+  resources :semestres, only: [:index, :create, :update, :destroy]
 
   post 'login', to: 'sessions#create' # POST /login - endpoint de login
-
+  post 'coordenacao/importar_turmas_csv', to: 'coordenacao#importar_turmas_csv'
+  
   #Isso cria as rotas REST:
   #GET /professores
   #GET /professores/:id
