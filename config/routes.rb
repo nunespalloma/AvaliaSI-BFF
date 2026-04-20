@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   resources :disciplinas, only: [:index, :create, :update, :destroy]
   resources :professores, only: [:index, :create, :update, :destroy]
   resources :semestres, only: [:index, :create, :update, :destroy]
-
+  resources :turmas, only: [:index, :create, :update, :destroy]
+  
   post 'login', to: 'sessions#create' # POST /login - endpoint de login
   post 'coordenacao/importar_turmas_csv', to: 'coordenacao#importar_turmas_csv'
   

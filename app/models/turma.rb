@@ -1,9 +1,23 @@
 class Turma < ApplicationRecord
-    belongs_to :disciplina
-    belongs_to :professor
-    belongs_to :semestre
-    has_and_belongs_to_many :alunos
-    has_many :avaliacaos, dependent: :destroy
+  self.table_name = 'turmas'
 
-    validates :nome, presence: true
+  belongs_to :disciplina
+  belongs_to :professor, optional: true
+  belongs_to :semestre
+  has_and_belongs_to_many :alunos
+  has_many :avaliacaos, dependent: :destroy
+
+  validates :nome, presence: true
+  validates :nome, uniqueness: {
+    scope: [:disciplina_id, :semestre_id],
+    message: 'já existe para esta disciplina neste semestre'
+  }
+
+  before_validation :normalizar_nome
+
+  private
+
+  def normalizar_nome
+    self.nome = nome.to_s.strip.upcase
+  end
 end
