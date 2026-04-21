@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create' # POST /login - endpoint de login
   post 'importacoes/plano_aulas', to: 'importacoes#plano_aulas'
 
+  get 'alunos/:aluno_id/avaliacoes_disponiveis', to: 'avaliacoes_disponiveis#index'
+  
   #Isso cria as rotas REST:
   #GET /professores
   #GET /professores/:id
