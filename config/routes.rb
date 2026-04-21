@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   resources :turmas, only: [:index, :create, :update, :destroy]
   
   post 'login', to: 'sessions#create' # POST /login - endpoint de login
-  post 'coordenacao/importar_turmas_csv', to: 'coordenacao#importar_turmas_csv'
-  
+  post 'importacoes/plano_aulas', to: 'importacoes#plano_aulas'
+
   #Isso cria as rotas REST:
   #GET /professores
   #GET /professores/:id

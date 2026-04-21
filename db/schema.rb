@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_12_233522) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_21_015640) do
   create_table "alunos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "usuario_id", null: false
     t.string "matricula", null: false
@@ -85,6 +85,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_233522) do
     t.index ["codigo"], name: "index_disciplinas_on_codigo", unique: true
   end
 
+  create_table "planos_aula_alunos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "matricula", null: false
+    t.string "codigo_disciplina", null: false
+    t.string "nome_disciplina", null: false
+    t.string "turma", null: false
+    t.bigint "semestre_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["matricula", "codigo_disciplina", "turma", "semestre_id"], name: "idx_planos_aula_alunos_unico", unique: true
+    t.index ["semestre_id"], name: "index_planos_aula_alunos_on_semestre_id"
+  end
+
   create_table "professores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "nome", null: false
     t.datetime "created_at", null: false
@@ -126,6 +138,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_12_233522) do
   add_foreign_key "alunos_avaliacaos", "alunos"
   add_foreign_key "alunos_avaliacaos", "avaliacaos"
   add_foreign_key "avaliacaos", "turmas"
+  add_foreign_key "planos_aula_alunos", "semestres"
   add_foreign_key "turmas", "disciplinas"
   add_foreign_key "turmas", "professores", column: "professor_id"
   add_foreign_key "turmas", "semestres"
