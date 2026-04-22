@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   post 'alunos/:aluno_id/avaliacoes', to: 'avaliacoes#create'
   
   get 'alunos/:aluno_id/avaliacoes_disponiveis', to: 'avaliacoes_disponiveis#index'
+  get 'resultados_avaliacoes', to: 'resultados_avaliacoes#index'
+  get 'turmas/:id/dashboard_avaliacao', to: 'resultados_avaliacoes#show'
   
   #Isso cria as rotas REST:
   #GET /professores
