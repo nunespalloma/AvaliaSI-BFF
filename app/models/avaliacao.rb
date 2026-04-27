@@ -7,9 +7,13 @@ class Avaliacao < ApplicationRecord
   validates :turma, presence: true
   validates :avaliacao_geral, presence: true
   validates :organizacao_conteudo, presence: true
+  validates :passagem_conteudo, presence: true
   validates :quantidade_exercicios, presence: true
   validates :avaliacao_condizente, presence: true
   validates :assiduidade_professor, presence: true
   validates :professor_solicito, presence: true
   validates :professor_respeitoso, presence: true
+  validates :teoria_pratica, presence: true
+  validates :trancou_turma, inclusion: { in: [true, false] }
+  validates :acredita_passar, inclusion: { in: [true, false] }
 end

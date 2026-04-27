@@ -19,7 +19,7 @@ class AvaliacoesController < ApplicationController
 
     if turma.blank?
       return render json: {
-        error: 'Não foi possível avaliar esta turma porque ela ainda não foi cadastrada pela coordenação.'      
+        error: 'Não foi possível avaliar esta turma porque ela ainda não foi cadastrada pela coordenação.'
       }, status: :unprocessable_content
     end
 
@@ -38,11 +38,17 @@ class AvaliacoesController < ApplicationController
       turma: turma,
       avaliacao_geral: avaliacao_params[:avaliacao_geral],
       organizacao_conteudo: avaliacao_params[:organizacao_conteudo],
+      passagem_conteudo: avaliacao_params[:passagem_conteudo],
       quantidade_exercicios: avaliacao_params[:quantidade_exercicios],
       avaliacao_condizente: avaliacao_params[:avaliacao_condizente],
       professor_respeitoso: avaliacao_params[:professor_respeitoso],
       professor_solicito: avaliacao_params[:professor_solicito],
       assiduidade_professor: avaliacao_params[:assiduidade_professor],
+      teoria_pratica: avaliacao_params[:teoria_pratica],
+      trancou_turma: avaliacao_params[:trancou_turma],
+      porque_trancou: avaliacao_params[:porque_trancou],
+      acredita_passar: avaliacao_params[:acredita_passar],
+      ponto_que_afligiu: avaliacao_params[:ponto_que_afligiu],
       aspectos_gerais: avaliacao_params[:aspectos_gerais]
     )
 
@@ -65,11 +71,17 @@ class AvaliacoesController < ApplicationController
       :plano_aula_aluno_id,
       :avaliacao_geral,
       :organizacao_conteudo,
+      :passagem_conteudo,
       :quantidade_exercicios,
       :avaliacao_condizente,
       :professor_respeitoso,
       :professor_solicito,
       :assiduidade_professor,
+      :teoria_pratica,
+      :trancou_turma,
+      :porque_trancou,
+      :acredita_passar,
+      :ponto_que_afligiu,
       :aspectos_gerais
     )
   end
