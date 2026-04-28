@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   resources :turmas, only: [:index, :create, :update, :destroy]
   
   post 'login', to: 'sessions#create' # POST /login - endpoint de login
+  post 'password/forgot', to: 'passwords#forgot'
+  post 'password/reset', to: 'passwords#reset'
+
   post 'importacoes/plano_aulas', to: 'importacoes#plano_aulas'
   post 'alunos/:aluno_id/avaliacoes', to: 'avaliacoes#create'
   

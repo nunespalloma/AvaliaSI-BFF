@@ -1,11 +1,16 @@
 class Usuario < ApplicationRecord
-    has_secure_password
+  has_secure_password
 
   has_one :aluno, dependent: :destroy, inverse_of: :usuario
 
   validates :nome, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true, length: { minimum: 6 }, if: :password_required?
+  validates :password,
+            presence: true,
+            length: { minimum: 6 },
+            if: :password_required?
+
+  validates :reset_password_token, uniqueness: true, allow_nil: true
 
   def password_required?
     new_record? || password.present? || password_confirmation.present?
