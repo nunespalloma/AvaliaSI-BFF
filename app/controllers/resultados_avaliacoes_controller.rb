@@ -1,18 +1,22 @@
 class ResultadosAvaliacoesController < ApplicationController
   def index
     turmas = Turma
-      .joins(:avaliacaos, :disciplina)
+      .joins(:avaliacaos, :disciplina, :semestre)
       .left_joins(:professor)
-      .includes(:disciplina, :professor)
+      .includes(:disciplina, :professor, :semestre)
       .distinct
       .order('disciplinas.nome ASC, turmas.nome ASC')
 
     render json: turmas.map { |turma|
+      avaliacoes = avaliacoes_da_combinacao(turma)
+
       {
         id: turma.id,
         disciplina: turma.disciplina&.nome.to_s,
         turma: turma.nome.to_s,
-        professor: turma.professor&.nome.to_s
+        professor: turma.professor&.nome.to_s,
+        semestre: "#{turma.semestre&.ano}.#{turma.semestre&.periodo}",
+        nota_estrelas: media(avaliacoes.pluck(:avaliacao_geral))
       }
     }
   end
@@ -20,15 +24,7 @@ class ResultadosAvaliacoesController < ApplicationController
   def show
     turma = Turma.find(params[:id])
 
-    avaliacoes = Avaliacao
-      .joins(:turma)
-      .where(
-        turmas: {
-          disciplina_id: turma.disciplina_id,
-          professor_id: turma.professor_id,
-          nome: turma.nome
-        }
-      )
+    avaliacoes = avaliacoes_da_combinacao(turma)
 
     if avaliacoes.empty?
       return render json: {
@@ -100,6 +96,18 @@ class ResultadosAvaliacoesController < ApplicationController
   end
 
   private
+
+  def avaliacoes_da_combinacao(turma)
+    Avaliacao
+      .joins(:turma)
+      .where(
+        turmas: {
+          disciplina_id: turma.disciplina_id,
+          professor_id: turma.professor_id,
+          nome: turma.nome
+        }
+      )
+  end
 
   def media(valores)
     nums = valores.map { |v| v.to_f }
