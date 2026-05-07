@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_28_011500) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_07_013913) do
   create_table "alunos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "usuario_id", null: false
     t.string "matricula", null: false
@@ -120,7 +120,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_28_011500) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["disciplina_id"], name: "index_turmas_on_disciplina_id"
-    t.index ["nome"], name: "index_turmas_on_nome"
+    t.index ["nome", "disciplina_id", "professor_id", "semestre_id"], name: "idx_turmas_disciplina_professor_semestre", unique: true
     t.index ["professor_id"], name: "index_turmas_on_professor_id"
     t.index ["semestre_id"], name: "index_turmas_on_semestre_id"
   end

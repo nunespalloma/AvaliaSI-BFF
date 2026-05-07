@@ -19,7 +19,16 @@ class ResultadosAvaliacoesController < ApplicationController
 
   def show
     turma = Turma.find(params[:id])
-    avaliacoes = turma.avaliacaos
+
+    avaliacoes = Avaliacao
+      .joins(:turma)
+      .where(
+        turmas: {
+          disciplina_id: turma.disciplina_id,
+          professor_id: turma.professor_id,
+          nome: turma.nome
+        }
+      )
 
     if avaliacoes.empty?
       return render json: {

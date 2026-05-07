@@ -9,8 +9,8 @@ class Turma < ApplicationRecord
 
   validates :nome, presence: true
   validates :nome, uniqueness: {
-    scope: [:disciplina_id, :semestre_id],
-    message: 'já existe para esta disciplina neste semestre'
+    scope: [:disciplina_id, :professor_id, :semestre_id],
+    message: 'já existe para esta disciplina, professor e semestre'
   }
 
   before_validation :normalizar_nome
